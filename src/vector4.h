@@ -13,6 +13,17 @@ struct Vector4 {
         };
         std::array<float, 4> vec;
     };
+
+    Vector4();
+    Vector4(float x, float y, float z, float w);
+    explicit Vector4(std::array<float, 4> vec);
+
+    Vector4 operator*(const float &k) const;
+    Vector4 operator+(const Vector4 &v) const;
+    Vector4 operator-() const;
+    Vector4 operator-(const Vector4 &v) const;
+
+    float dot(const Vector4 &v) const;
 };
 
 using Point4 = Vector4;
