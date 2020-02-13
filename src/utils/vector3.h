@@ -22,8 +22,12 @@ struct Vector3 {
     Vector3 operator-() const;
     Vector3 operator-(const Vector3 &v) const;
 
-    [[nodiscard]] float dot(const Vector3 &v) const;
-    [[nodiscard]] Vector3 cross(const Vector3 &v) const;
+    static float dot(const Vector3 &u, Vector3 &v) const;
+    static Vector3 cross(const Vector3 &u, const Vector3 &v) const;
+
+    float sqMagnitude() const;
+    float magnitude() const;
+    Vector3 normalized() const;
 
     friend std::ostream&operator<<(std::ostream &out, Vector3 &v);
 };
@@ -31,5 +35,13 @@ struct Vector3 {
 std::ostream& operator<<(std::ostream &out, Vector3 &v);
 
 using Point3 = Vector3;
+
+struct Line3
+{
+    Point3 origin;
+    Vector3 direction;
+
+    Point3 pointAt(float d) const;
+};
 
 #endif //RAYTRACER_VECTOR3_H

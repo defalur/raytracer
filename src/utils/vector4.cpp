@@ -30,19 +30,23 @@ Vector4::Vector4(std::array<float, 4> vec)
 {
 }
 
-Vector4 Vector4::operator*(const float &k) const {
+Vector4 Vector4::operator*(const float &k) const
+{
     return Vector4(x * k, y * k, z * k, w * k);
 }
 
-Vector4 Vector4::operator+(const Vector4 &v) const {
+Vector4 Vector4::operator+(const Vector4 &v) const
+{
     return Vector4(x + v.x, y + v.y, z + v.z, w + v.w);
 }
 
-Vector4 Vector4::operator-(const Vector4 &v) const {
+Vector4 Vector4::operator-(const Vector4 &v) const
+{
     return Vector4(x - v.x, y - v.y, z - v.z, w - v.w);
 }
 
-float Vector4::dot(const Vector4 &v) const {
+float Vector4::dot(const Vector4 &v) const
+{
     return x * v.x + y * v.y + z * v.z + w * v.w;
 }
 
@@ -55,12 +59,14 @@ float Vector4::dot(const Vector4 &v) const {
             Vector3(w.x, w.y, w.z).cross(Vector3(t.x, t.y, t.z)).dot(Vector3(v.x, v.y, v.z)));
 }*/
 
-std::ostream &operator<<(std::ostream &out, Vector4 &v) {
+std::ostream &operator<<(std::ostream &out, Vector4 &v)
+{
     out << '(' << v.x << ", " << v.y << ", " << v.z << ", " << v.w << ')';
     return out;
 }
 
-Vector4 Vector4::euclid() const {
+Vector4 Vector4::euclid() const
+{
     if (w != 0)
         return Vector4(x / w, y / w, z / w, 1);
     return Vector4(x, y, z, w);

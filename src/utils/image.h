@@ -5,7 +5,8 @@
 #include <string>
 #include "color.h"
 
-class Image {
+class Image
+{
 private:
     unsigned w;
     unsigned h;

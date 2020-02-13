@@ -28,14 +28,17 @@ Image::Image(unsigned width, unsigned height, PixColor base)
     }
 }
 
-void Image::set(unsigned x, unsigned y, PixColor color) {
+void Image::set(unsigned x, unsigned y, PixColor color)
+{
     data.at(x + y * w) = color;
 }
 
-unsigned Image::width() const {
+unsigned Image::width() const
+{
     return w;
 }
 
-unsigned Image::height() const {
+unsigned Image::height() const
+{
     return h;
 }

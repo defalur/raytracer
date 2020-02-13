@@ -10,11 +10,18 @@ struct PixColor
     uint8_t b;
 };
 
-struct RayColor
+struct MatColor
 {
     float r;
     float g;
     float b;
+
+    MatColor operator*(float k) const;
+    MatColor operator*(MatColor c) const;
+
+    PixColor toPixColor() const;
 };
+
+using RayColor = MatColor;
 
 #endif //RAYTRACER_COLOR_H
