@@ -22,8 +22,8 @@ struct Vector3 {
     Vector3 operator-() const;
     Vector3 operator-(const Vector3 &v) const;
 
-    float dot(const Vector3 &v) const;
-    Vector3 cross(const Vector3 &v) const;
+    [[nodiscard]] float dot(const Vector3 &v) const;
+    [[nodiscard]] Vector3 cross(const Vector3 &v) const;
 
     friend std::ostream&operator<<(std::ostream &out, Vector3 &v);
 };
