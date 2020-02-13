@@ -37,15 +37,15 @@ std::vector<Point3> Sphere::intersect(Line3 ray) const
 
 Vector3 Sphere::normal(Point3 point) const
 {
-    return Vector3();
+    return (point - center).normalized();
 }
 
 MatColor Sphere::texture(Point3 point) const
 {
-    return MatColor();
+    return mat.getColor(0.f, 0.f);//simple solutions for the start
 }
 
 TextureMaterial::Material Sphere::material(Point3 point) const
 {
-    return TextureMaterial::Material();
+    return mat.getMaterial(0.f, 0.f);
 }

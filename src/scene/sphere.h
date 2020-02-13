@@ -15,6 +15,8 @@ public:
 private:
     Point3 center;
     float radius;
+
+    TextureMaterial &mat;
 };
 
 
