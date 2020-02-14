@@ -27,6 +27,7 @@ void Camera::initVectors()
 
     //compute the up vector
     up_ = Vector3::cross(right_, forward_).normalized();
+    forward_ = forward_ * zmin_;
 }
 
 
@@ -54,9 +55,14 @@ Line3 Camera::getRay(unsigned x, unsigned y) const {
 
     //applying the transformation matrix
     std::array<float, 3> screenPos = picToCamera_ * imagePos.vec;
+    auto tmp = Vector3{screenPos};
+
+    //std::cout << "In: " << imagePos << " Out: " << tmp << "\n";
 
     //computing ray
     auto ray = forward_ + up_ * unitY_ * screenPos[1] + right_ * unitX_ * screenPos[0];
+
+    //std::cout << "Ray: " << ray << "\n";
 
     return Line3{position_, ray.normalized()};
 }

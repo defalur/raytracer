@@ -14,7 +14,7 @@ std::vector<RaycastHit> Sphere::intersect(Line3 ray)
     auto rsquare = radius * radius;
     auto oc = ray.origin - center;
     auto b = 2 * Vector3::dot(ray.direction, oc);
-    auto c = oc.sqMagnitude() * rsquare;
+    auto c = oc.sqMagnitude() - rsquare;
     auto delta = b * b - 4 * c;//no a because direction is a unit vector
     if (delta < 0.f)
         return std::vector<RaycastHit>();//no points

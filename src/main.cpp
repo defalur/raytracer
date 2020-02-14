@@ -15,11 +15,14 @@ int main()
     auto camera = Camera{Vector3{0, 0, 0}, 90, 0.5f};
 
     auto cyan = UniformTexture{PixColor{0, 255, 255}};
+    auto red = UniformTexture{PixColor{255, 0, 0}};
     auto obj = std::make_shared<Sphere>(Point3{0, 5, 0}, 0.5f, cyan);
+    auto obj2 = std::make_shared<Sphere>(Point3{1, 4, 0}, 0.7f, red);
 
     auto light = std::make_shared<PointLight>(10, MatColor{1, 1, 1}, Point3{1, 2, 1});
 
     scene.addObject(obj);
+    scene.addObject(obj2);
     scene.addLight(light);
 
     std::cout << "Hello, World!" << std::endl;
@@ -27,9 +30,9 @@ int main()
 
     camera.computeMatrix(img.width(), img.height());
 
-    for (unsigned x = 0; x < img.width(); x++)
+    for (unsigned y = 0; y < img.height(); y++)
     {
-        for (unsigned y = 0; y < img.height(); y++)
+        for (unsigned x = 0; x < img.width(); x++)
         {
             auto ray = camera.getRay(x, y);
 
@@ -41,6 +44,7 @@ int main()
                 img.set(x, y, pixColor.toPixColor());
             }
         }
+        //std::cout << "Progress: " << (float)y / img.height() << "\n";
     }
     img.save("test.ppm");
 

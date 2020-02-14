@@ -7,7 +7,15 @@ void Scene::addObject(std::shared_ptr<SceneObject> obj) {
 }
 
 std::optional<RaycastHit> Scene::raycast(Line3 ray) {
-    return raycast_objects(ray).front();
+    auto hits = raycast_objects(ray);
+    if (hits.size() > 0)
+    {
+        return hits.front();
+    }
+    else
+    {
+        return std::nullopt;
+    }
 }
 
 std::vector<RaycastHit> Scene::raycast_objects(Line3 ray) {
