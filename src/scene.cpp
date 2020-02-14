@@ -24,7 +24,13 @@ std::vector<RaycastHit> Scene::raycast_objects(Line3 ray) {
     for (auto& obj : objects_)
     {
         auto tmp = obj->intersect(ray);
-        hits.insert(hits.end(), tmp.begin(), tmp.end());
+        for (auto& hit : tmp)
+        {
+            if (hit.distance > 0)
+            {
+                hits.push_back(hit);
+            }
+        }
     }
 
     std::sort(hits.begin(), hits.end(),
