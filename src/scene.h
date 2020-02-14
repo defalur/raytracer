@@ -15,6 +15,11 @@ public:
 
     std::optional<RaycastHit> raycast(Line3 ray);
 
+    auto getLights() const
+    {
+        return lights_;
+    }
+
 private:
     std::vector<std::shared_ptr<SceneObject>> objects_;
     std::vector<std::shared_ptr<Light>> lights_;

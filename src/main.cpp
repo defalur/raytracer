@@ -3,6 +3,7 @@
 #include <scene/sphere.h>
 #include <materials/uniformtexture.h>
 #include <scene/pointlight.h>
+#include <shader/shader.h>
 #include "utils/vector3.h"
 #include "utils/color.h"
 #include "utils/image.h"
@@ -40,11 +41,11 @@ int main()
 
             if (hit.has_value())
             {
-                auto pixColor = hit->object->texture(hit->point);
-                img.set(x, y, pixColor.toPixColor());
+                auto pixColor = Shader::shade(*hit, scene);
+                img.set(x, y, pixColor);
             }
         }
-        //std::cout << "Progress: " << (float)y / img.height() << "\n";
+        std::cout << "Progress: " << (float)y / img.height() << "\n";
     }
     img.save("test.ppm");
 

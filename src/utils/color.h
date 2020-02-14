@@ -18,6 +18,7 @@ struct MatColor
 
     MatColor operator*(float k) const;
     MatColor operator*(MatColor c) const;
+    MatColor operator+(MatColor c) const;
 
     PixColor toPixColor() const;
 };
