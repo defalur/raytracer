@@ -17,7 +17,7 @@ add_executable(raytracer src/main.cpp
         src/materials/uniformtexture.h
         src/utils/color.cpp
         src/scene/sceneobject.h
-        src/scene/sphere.cpp src/scene/sphere.h src/utils/utils.h src/scene/light.h src/scene/pointlight.cpp src/scene/pointlight.h src/scene/camera.cpp src/scene/camera.h src/utils/raycastHit.h src/utils/Matrix.h src/Scene.cpp src/Scene.h)
+        src/scene/sphere.cpp src/scene/sphere.h src/utils/utils.h src/scene/light.h src/scene/pointlight.cpp src/scene/pointlight.h src/scene/camera.cpp src/scene/camera.h src/utils/raycastHit.h src/utils/Matrix.h src/scene.cpp src/scene.h)
 
 target_include_directories(raytracer PRIVATE
         ${CMAKE_SOURCE_DIR}/src)

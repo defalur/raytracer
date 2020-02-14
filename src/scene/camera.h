@@ -8,7 +8,7 @@
 class Camera
 {
 public:
-    Camera(Point3 position, float xAngle, float zmin);
+    Camera(Point3 position, float xAngle, float zmin);//forward (0, 1, 0)
     Camera(Point3 position, Vector3 forward, float xAngle, float zmin);
 
     void computeMatrix(unsigned imageWidth, unsigned imageHeight);

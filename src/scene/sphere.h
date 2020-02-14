@@ -7,6 +7,8 @@
 class Sphere : public SceneObject
 {
 public:
+    Sphere(Point3 center, float radius, TextureMaterial &mat);
+
     std::vector<RaycastHit> intersect(Line3 ray) override;
     Vector3 normal(Point3 point) const override;
     MatColor texture(Point3 point) const override;

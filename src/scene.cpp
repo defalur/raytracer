@@ -1,12 +1,12 @@
 #include <algorithm>
 #include <memory>
-#include "Scene.h"
+#include "scene.h"
 
-void Scene::addObject(SceneObject* obj) {
-    objects_.push_back(std::shared_ptr<SceneObject>(obj));
+void Scene::addObject(std::shared_ptr<SceneObject> obj) {
+    objects_.push_back(obj);
 }
 
-RaycastHit Scene::raycast(Line3 ray) {
+std::optional<RaycastHit> Scene::raycast(Line3 ray) {
     return raycast_objects(ray).front();
 }
 
@@ -26,4 +26,8 @@ std::vector<RaycastHit> Scene::raycast_objects(Line3 ray) {
             });
 
     return hits;
+}
+
+void Scene::addLight(std::shared_ptr<Light> light) {
+    lights_.push_back(light);
 }

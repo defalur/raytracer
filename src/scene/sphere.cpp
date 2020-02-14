@@ -2,6 +2,13 @@
 #include <vector>
 #include "sphere.h"
 
+
+Sphere::Sphere(Point3 center, float radius, TextureMaterial &mat)
+    : center(center), radius(radius), mat(mat)
+{
+
+}
+
 std::vector<RaycastHit> Sphere::intersect(Line3 ray)
 {
     auto rsquare = radius * radius;
@@ -46,3 +53,4 @@ TextureMaterial::Material Sphere::material(Point3 point) const
 {
     return mat.getMaterial(0.f, 0.f);
 }
+
