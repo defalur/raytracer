@@ -15,15 +15,15 @@ struct Vector3 {
 
     Vector3();
     Vector3(float x, float y, float z);
-    explicit Vector3(std::array<float, 3> vec);
+    explicit Vector3(std::array<float, 3U> vec);
 
     Vector3 operator*(const float &k) const;
     Vector3 operator+(const Vector3 &v) const;
     Vector3 operator-() const;
     Vector3 operator-(const Vector3 &v) const;
 
-    static float dot(const Vector3 &u, Vector3 &v) const;
-    static Vector3 cross(const Vector3 &u, const Vector3 &v) const;
+    static float dot(const Vector3 &u, const Vector3 &v);
+    static Vector3 cross(const Vector3 &u, const Vector3 &v);
 
     float sqMagnitude() const;
     float magnitude() const;

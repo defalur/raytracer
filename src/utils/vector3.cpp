@@ -1,4 +1,7 @@
+#include <cmath>
+
 #include <iostream>
+#include <cmath>
 
 #include "vector3.h"
 
@@ -47,7 +50,7 @@ std::ostream &operator<<(std::ostream &out, Vector3 &v)
 
 float Vector3::magnitude() const
 {
-    return sqrt(sqMagnitude());
+    return std::sqrt(sqMagnitude());
 }
 
 Vector3 Vector3::normalized() const
@@ -58,15 +61,15 @@ Vector3 Vector3::normalized() const
 
 float Vector3::sqMagnitude() const
 {
-    return dot(this, *this);
+    return dot(*this, *this);
 }
 
-float Vector3::dot(const Vector3 &u, Vector3 &v) const
+float Vector3::dot(const Vector3 &u, const Vector3 &v)
 {
     return u.x * v.x + u.y * v.y + u.z * v.z;
 }
 
-Vector3 Vector3::cross(const Vector3 &u, const Vector3 &v) const
+Vector3 Vector3::cross(const Vector3 &u, const Vector3 &v)
 {
     return Vector3(u.y * v.z - u.z * v.y,
                    u.z * v.x - u.x * v.z,

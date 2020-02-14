@@ -3,14 +3,19 @@
 
 
 #include <utils/vector3.h>
+#include <utils/Matrix.h>
 
 class Camera
 {
 public:
-    Camera(Point3 position, float xAngle, float yAngle, float zmin);
-    Camera(Point3 position, Vector3 forward, float xAngle, float yAngle, float zmin);
+    Camera(Point3 position, float xAngle, float zmin);
+    Camera(Point3 position, Vector3 forward, float xAngle, float zmin);
+
+    void computeMatrix(unsigned imageWidth, unsigned imageHeight);
 
     void lookAt(Point3 point);
+
+    Line3 getRay(unsigned x, unsigned y) const;
 
 private:
     Point3 position_;
@@ -18,6 +23,11 @@ private:
     Vector3 up_;
     Vector3 right_;
     float zmin_;
+
+    float unitX_;
+    float unitY_;
+
+    Matrix3x3 picToCamera_;
 
     void initVectors();
 };
