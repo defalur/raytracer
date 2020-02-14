@@ -2,7 +2,7 @@
 #include <vector>
 #include "sphere.h"
 
-std::vector<Point3> Sphere::intersect(Line3 ray) const
+std::vector<RaycastHit> Sphere::intersect(Line3 ray)
 {
     auto rsquare = radius * radius;
     auto oc = ray.origin - center;
@@ -10,12 +10,13 @@ std::vector<Point3> Sphere::intersect(Line3 ray) const
     auto c = oc.sqMagnitude() * rsquare;
     auto delta = b * b - 4 * c;//no a because direction is a unit vector
     if (delta < 0.f)
-        return std::vector<Point3>();//no points
+        return std::vector<RaycastHit>();//no points
 
     auto d = -Vector3::dot(ray.direction, oc);
     if (floateq(delta, 0))
     {
-        return {ray.pointAt(d)};
+        auto hit = RaycastHit{ray.pointAt(d), d, this};
+        return {hit};
     }
     else
     {
@@ -24,14 +25,10 @@ std::vector<Point3> Sphere::intersect(Line3 ray) const
         auto d1 = d - delta2;
         auto d2 = d + delta2;
 
-        if (d1 < d2)
-        {
-            return {ray.pointAt(d1), ray.pointAt(d2)};
-        }
-        else
-            {
-            return {ray.pointAt(d2), ray.pointAt(d2)};
-        }
+        auto hit1 = RaycastHit{ray.pointAt(d1), d1, this};
+        auto hit2 = RaycastHit{ray.pointAt(d2), d2, this};
+
+        return {hit1, hit2};
     }
 }
 

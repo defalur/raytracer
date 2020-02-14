@@ -2,7 +2,7 @@
 #define RAYTRACER_TEXTUREMATERIAL_H
 
 
-#include "tools/color.h"
+#include "utils/color.h"
 
 class TextureMaterial
 {

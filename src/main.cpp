@@ -1,8 +1,8 @@
 #include <iostream>
-#include "tools/vector3.h"
-#include "tools/color.h"
-#include "tools/image.h"
-#include "tools/vector4.h"
+#include "utils/vector3.h"
+#include "utils/color.h"
+#include "utils/image.h"
+#include "utils/vector4.h"
 
 int main()
 {

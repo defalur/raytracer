@@ -78,5 +78,5 @@ Vector3 Vector3::cross(const Vector3 &u, const Vector3 &v)
 
 Point3 Line3::pointAt(float d) const
 {
-    return origin + d * direction;
+    return origin + direction * d;
 }

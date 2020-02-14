@@ -49,9 +49,14 @@ void Camera::computeMatrix(unsigned imageWidth, unsigned imageHeight) {
 }
 
 Line3 Camera::getRay(unsigned x, unsigned y) const {
+    //converting to homogeneous coordinates
     Vector3 imagePos = {(float)x, (float)y, 1};
 
+    //applying the transformation matrix
     std::array<float, 3> screenPos = picToCamera_ * imagePos.vec;
+
+    //computing ray
     auto ray = forward_ + up_ * unitY_ * screenPos[1] + right_ * unitX_ * screenPos[0];
+
     return Line3{position_, ray.normalized()};
 }

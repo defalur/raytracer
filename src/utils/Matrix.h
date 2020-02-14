@@ -22,10 +22,11 @@ public:
     }
 
     void set(unsigned i, unsigned j, float value);
-    float get(unsigned i, unsigned j);
+    float get(unsigned i, unsigned j) const;
 
     std::array<float, rows> operator*(std::array<float, columns> vector) const;
 
+    template <unsigned r, unsigned c>
     friend std::ostream& operator<<(std::ostream& out, Matrix<rows, columns> mat);
 };
 
@@ -37,7 +38,7 @@ void Matrix<rows, columns>::set(unsigned i, unsigned j, float value) {
 }
 
 template<unsigned int rows, unsigned int columns>
-float Matrix<rows, columns>::get(unsigned i, unsigned j) {
+float Matrix<rows, columns>::get(unsigned i, unsigned j) const {
     if (i < 0 or j < 0 or j >= columns or i >= rows)
         throw std::invalid_argument("Matrix indexes out of bounds");
     return data_[j + i * columns];
@@ -63,16 +64,18 @@ std::array<float, rows> Matrix<rows, columns>::operator*(std::array<float, colum
 template <unsigned rows, unsigned columns>
 std::ostream& operator<<(std::ostream& out, Matrix<rows, columns> mat)
 {
-    std::cout << "(";
+    printf("(");
     for (unsigned i = 0; i < rows; i++)
     {
         for (unsigned j = 0; j < columns; j++)
         {
             printf(" %5.2f", mat.get(i, j));
         }
-        std::cout << "\n";
+        printf("\n");
     }
-    std::cout << ")";
+    printf(")");
+
+    return out;
 }
 
 using Matrix3x3 = Matrix<3, 3>;
