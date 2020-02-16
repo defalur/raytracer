@@ -34,7 +34,7 @@ void Camera::initVectors()
 
 void Camera::lookAt(Point3 point)
 {
-    Vector3 dir = (point - position_).normalized();
+    forward_ = (point - position_);
     initVectors();
 }
 

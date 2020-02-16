@@ -13,7 +13,7 @@
 int main()
 {
     auto scene = Scene{};
-    auto camera = Camera{Vector3{0, 0, 0}, 90, 0.5f};
+    auto camera = Camera{Vector3{0, 0, 4}, 90, 0.5f};
 
     auto cyan = UniformTexture{PixColor{0, 255, 255}};
     auto red = UniformTexture{PixColor{255, 0, 0}};
@@ -22,7 +22,9 @@ int main()
     auto obj2 = std::make_shared<Sphere>(Point3{1, 4, 0}, 0.7f, red);
     auto ground = std::make_shared<Sphere>(Point3{0, 0, -201}, 200, white);
 
-    auto light = std::make_shared<PointLight>(10, MatColor{1, 1, 1}, Point3{1, 2, 1});
+    auto light = std::make_shared<PointLight>(5, MatColor{1, 1, 1}, Point3{1, 2, 1});
+
+    camera.lookAt(obj->position());
 
     scene.addObject(obj);
     scene.addObject(obj2);

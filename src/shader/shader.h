@@ -11,7 +11,7 @@ public:
     static PixColor shade(RaycastHit hit, Scene& scene);
 
 private:
-    static float projectShadow(Light& light, Point3 point, Scene& scene);
+    static float projectShadow(Light& light, Point3 point, Vector3 normal, Scene& scene);
 };
 
 

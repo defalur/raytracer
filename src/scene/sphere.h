@@ -13,6 +13,7 @@ public:
     Vector3 normal(Point3 point) const override;
     MatColor texture(Point3 point) const override;
     TextureMaterial::Material material(Point3 point) const override;
+    Point3 position() const override;
 
 private:
     Point3 center;

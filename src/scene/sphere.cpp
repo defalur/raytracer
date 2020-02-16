@@ -54,3 +54,8 @@ TextureMaterial::Material Sphere::material(Point3 point) const
     return mat.getMaterial(0.f, 0.f);
 }
 
+Point3 Sphere::position() const
+{
+    return center;
+}
+
