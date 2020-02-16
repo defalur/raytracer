@@ -2,8 +2,9 @@
 #include <scene/sceneobject.h>
 #include <scene.h>
 #include <algorithm>
+#include <cmath>
 
-PixColor Shader::shade(RaycastHit hit, Scene& scene) {
+PixColor Shader::shade(RaycastHit hit, Scene& scene, Line3 ray) {
     auto lights = scene.getLights();
 
     auto res = MatColor{0, 0, 0};
@@ -14,8 +15,9 @@ PixColor Shader::shade(RaycastHit hit, Scene& scene) {
         auto normal = hit.object->normal(point);
         auto idotn = std::max(Vector3::dot(normal, -light->direction(point)), 0.f);
         float shadowCoef = projectShadow(*light, point, normal, scene);
-        auto color = hit.object->texture(point) * idotn
-                * light->color() * light->intensity(point) * shadowCoef;
+        auto color = (hit.object->texture(point) * idotn
+                * light->color() * light->intensity(point)
+                + light->color() * specularity(*light, hit, normal, ray)) * shadowCoef;
         res = res + color;
     }
 
@@ -31,4 +33,16 @@ float Shader::projectShadow(Light& light, Point3 point, Vector3 normal, Scene& s
     }
 
     return 1.f;
+}
+
+float Shader::specularity(Light &light, RaycastHit hit, Vector3 normal, Line3 ray)
+{
+    auto K = ray.direction + normal;
+    auto reflectRay = normal + K;
+
+    auto mat = hit.object->material(hit.point);
+    float result = mat.ks * light.intensity(hit.point) *
+            powf(Vector3::dot(reflectRay, -light.direction(hit.point)), mat.ns);
+
+    return std::max(result, 0.f);
 }

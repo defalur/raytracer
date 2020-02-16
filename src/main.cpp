@@ -13,22 +13,26 @@
 int main()
 {
     auto scene = Scene{};
-    auto camera = Camera{Vector3{0, 0, 4}, 90, 0.5f};
+    auto camera = Camera{Vector3{0, 0, 2}, 90, 0.5f};
 
-    auto cyan = UniformTexture{PixColor{0, 255, 255}};
-    auto red = UniformTexture{PixColor{255, 0, 0}};
+    auto cyan = UniformTexture{PixColor{0, 255, 255},
+                               TextureMaterial::Material{0.2, 12}};
+    auto red = UniformTexture{PixColor{255, 0, 0},
+                              TextureMaterial::Material{0.2, 12}};
     auto white = UniformTexture();
     auto obj = std::make_shared<Sphere>(Point3{0, 5, 0}, 0.5f, cyan);
     auto obj2 = std::make_shared<Sphere>(Point3{1, 4, 0}, 0.7f, red);
     auto ground = std::make_shared<Sphere>(Point3{0, 0, -201}, 200, white);
 
-    auto light = std::make_shared<PointLight>(5, MatColor{1, 1, 1}, Point3{1, 2, 1});
+    auto light = std::make_shared<PointLight>(3, MatColor{1, 1, 1}, Point3{1, 2, 1});
+    auto light2 = std::make_shared<PointLight>(2.5, MatColor{1, 0, 1}, Point3{-1.5, 2, 1});
 
     camera.lookAt(obj->position());
 
     scene.addObject(obj);
     scene.addObject(obj2);
     scene.addLight(light);
+    scene.addLight(light2);
     scene.addObject(ground);
 
     std::cout << "Hello, World!" << std::endl;
@@ -46,7 +50,7 @@ int main()
 
             if (hit.has_value())
             {
-                auto pixColor = Shader::shade(*hit, scene);
+                auto pixColor = Shader::shade(*hit, scene, ray);
                 img.set(x, y, pixColor);
             }
         }
