@@ -1,6 +1,6 @@
 #include "uniformtexture.h"
 UniformTexture::UniformTexture()
-    : color{1, 1, 1}, material{0, 0}
+    : color{1, 1, 1}, material{1,0, 0}
 {
 }
 

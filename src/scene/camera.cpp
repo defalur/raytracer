@@ -23,7 +23,7 @@ void Camera::initVectors()
     //compute the right vector
     //if we want the camera to rotate around the forward axis, the rotation should
     //be done separately
-    right_ = Vector3(forward_.y, 0.f, -forward_.x).normalized();
+    right_ = Vector3(forward_.y, -forward_.x, 0.f).normalized();
 
     //compute the up vector
     up_ = Vector3::cross(right_, forward_).normalized();

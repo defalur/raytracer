@@ -9,6 +9,7 @@ class TextureMaterial
 public:
     struct Material
     {
+        float kd;//diffuse intensity
         float ks;//specular intensity
         float ns;//specular roughness
     };

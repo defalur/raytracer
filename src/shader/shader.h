@@ -8,11 +8,14 @@
 
 class Shader {
 public:
-    static PixColor shade(RaycastHit hit, Scene& scene, Line3 ray);
+    static MatColor shade(RaycastHit hit, Scene& scene, Line3 ray, unsigned depth = 3);
 
 private:
     static float projectShadow(Light& light, Point3 point, Vector3 normal, Scene& scene);
     static float specularity(Light& light, RaycastHit hit, Vector3 normal, Line3 ray);
+    static Vector3 reflectRay(Vector3 rayDir, Vector3 normal);
+    static MatColor reflection(RaycastHit hit, Vector3 ray, Vector3 normal,
+            Scene& scene, unsigned depth);
 };
 
 
