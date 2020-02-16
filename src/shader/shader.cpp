@@ -71,7 +71,7 @@ MatColor Shader::reflection(RaycastHit hit, Vector3 ray, Vector3 normal,
     if (reflectHit.has_value())
     {
         auto color = shade(reflectHit.value(), scene, reflectedRay, depth - 1);
-        return (color * (1.f / (hit.distance * hit.distance)))
+        return (color /** std::min((1.f / (hit.distance * hit.distance)), 1.f)*/)
                * hit.object->material(hit.point).ks;//does it need a falloff?
     }
 

@@ -8,7 +8,7 @@
 
 class Shader {
 public:
-    static MatColor shade(RaycastHit hit, Scene& scene, Line3 ray, unsigned depth = 3);
+    static MatColor shade(RaycastHit hit, Scene& scene, Line3 ray, unsigned depth = 5);
 
 private:
     static float projectShadow(Light& light, Point3 point, Vector3 normal, Scene& scene);

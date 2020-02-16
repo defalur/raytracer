@@ -13,16 +13,16 @@
 int main()
 {
     auto scene = Scene{};
-    auto camera = Camera{Vector3{1, 1.5, 1.5}, 90, 0.5f};
+    auto camera = Camera{Vector3{1, 2, 1.5}, 90, 0.5f};
 
     auto cyan = UniformTexture{PixColor{0, 255, 255},
-                               TextureMaterial::Material{0.2,0.8, 5}};
+                               TextureMaterial::Material{0.1,0.9, 5}};
     auto red = UniformTexture{PixColor{255, 0, 0},
-                              TextureMaterial::Material{0.5,0.5, 10}};
+                              TextureMaterial::Material{0.8,0.2, 10}};
     auto green = UniformTexture{PixColor{10, 255, 50},
-                                TextureMaterial::Material{0.3,0.6, 8}};
+                                TextureMaterial::Material{0.2,0.8, 8}};
     auto groundMat = UniformTexture{MatColor{0.8, 0.6, 1},
-                                TextureMaterial::Material{0.3,0.5, 10}};
+                                TextureMaterial::Material{0.3,0.7, 10}};
     auto obj = std::make_shared<Sphere>(Point3{0, 5, 0}, 0.5f, cyan);
     auto obj2 = std::make_shared<Sphere>(Point3{1.5, 4, 0}, 0.5f, red);
     auto obj3 = std::make_shared<Sphere>(Point3{-1.3, 4, 0}, 0.5f, green);
@@ -59,7 +59,7 @@ int main()
                 img.set(x, y, pixColor);
             }
         }
-        std::cout << "Progress: " << (float)y / img.height() << "\n";
+        //std::cout << "Progress: " << (float)y / img.height() << "\n";
     }
     img.save("test.ppm");
 
