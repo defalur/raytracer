@@ -13,6 +13,7 @@ public:
     MatColor color() const override;
     float intensity(Point3 point) const override;
     Vector3 direction(Point3 point) const override;
+    float distance(Point3 point) const override;
 
 private:
     float strength_;

@@ -5,9 +5,7 @@
 
 #define EQEPSILON 0.0001
 
-bool floateq(float a, float b)
-{
-    return std::abs(a - b) < EQEPSILON;
-}
+bool floateq(float a, float b);
+
 
 #endif //RAYTRACER_UTILS_H

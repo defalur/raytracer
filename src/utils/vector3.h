@@ -22,6 +22,8 @@ struct Vector3 {
     Vector3 operator-() const;
     Vector3 operator-(const Vector3 &v) const;
 
+    bool operator==(const Vector3& v) const;
+
     static float dot(const Vector3 &u, const Vector3 &v);
     static Vector3 cross(const Vector3 &u, const Vector3 &v);
 

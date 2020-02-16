@@ -4,6 +4,7 @@
 #include <cmath>
 
 #include "vector3.h"
+#include <utils/utils.h>
 
 Vector3::Vector3()
 {
@@ -74,6 +75,10 @@ Vector3 Vector3::cross(const Vector3 &u, const Vector3 &v)
     return Vector3(u.y * v.z - u.z * v.y,
                    u.z * v.x - u.x * v.z,
                    u.x * v.y - u.y * v.x);
+}
+
+bool Vector3::operator==(const Vector3 &v) const {
+    return floateq(x, v.x) and floateq(y, v.y) and floateq(z, v.z);
 }
 
 Point3 Line3::pointAt(float d) const

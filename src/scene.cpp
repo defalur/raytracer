@@ -6,9 +6,9 @@ void Scene::addObject(std::shared_ptr<SceneObject> obj) {
     objects_.push_back(obj);
 }
 
-std::optional<RaycastHit> Scene::raycast(Line3 ray) {
+std::optional<RaycastHit> Scene::raycast(Line3 ray, float dist) {
     auto hits = raycast_objects(ray);
-    if (hits.size() > 0)
+    if (hits.size() > 0 and hits.front().distance < dist)
     {
         return hits.front();
     }

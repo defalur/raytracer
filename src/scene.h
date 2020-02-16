@@ -13,7 +13,8 @@ public:
     void addObject(std::shared_ptr<SceneObject> obj);
     void addLight(std::shared_ptr<Light> light);
 
-    std::optional<RaycastHit> raycast(Line3 ray);
+    std::optional<RaycastHit> raycast(Line3 ray,
+            float dist = std::numeric_limits<float>::infinity());
 
     auto getLights() const
     {

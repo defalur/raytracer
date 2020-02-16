@@ -21,3 +21,6 @@ Vector3 PointLight::direction(Point3 point) const
     return (point - position_).normalized();
 }
 
+float PointLight::distance(Point3 point) const {
+    return (point - position_).magnitude();
+}

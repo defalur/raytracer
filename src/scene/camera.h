@@ -2,8 +2,8 @@
 #define RAYTRACER_CAMERA_H
 
 
-#include <utils/vector3.h>
 #include <utils/Matrix.h>
+#include <utils/vector3.h>
 
 class Camera
 {

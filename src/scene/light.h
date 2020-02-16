@@ -11,6 +11,7 @@ public:
     virtual MatColor color() const = 0;
     virtual float intensity(Point3 point) const = 0;
     virtual Vector3 direction(Point3 point) const = 0;
+    virtual float distance(Point3 point) const = 0;
 };
 
 
