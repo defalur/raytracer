@@ -2,5 +2,5 @@
 
 bool floateq(float a, float b)
 {
-return std::abs(a - b) < EQEPSILON;
+return std::abs(a - b) < EPSILON;
 }

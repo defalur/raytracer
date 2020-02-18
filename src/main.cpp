@@ -4,6 +4,9 @@
 #include <materials/uniformtexture.h>
 #include <scene/pointlight.h>
 #include <shader/shader.h>
+#include <shader/diffuseshader.h>
+#include <shader/specularshader.h>
+#include <shader/reflectionshader.h>
 #include "utils/vector3.h"
 #include "utils/color.h"
 #include "utils/image.h"
@@ -40,6 +43,11 @@ int main()
     scene.addLight(light2);
     scene.addObject(ground);
 
+    auto shaderEngine = ShaderEngine();
+    shaderEngine.addLightShader(DiffuseShader{});
+    shaderEngine.addLightShader(SpecularShader{});
+    shaderEngine.addShader(ReflectionShader{});
+
     std::cout << "Hello, World!" << std::endl;
     auto img = Image(800, 600);
 
@@ -55,7 +63,8 @@ int main()
 
             if (hit.has_value())
             {
-                auto pixColor = Shader::shade(*hit, scene, ray).toPixColor();
+                auto context = HitContext{scene, *hit, ray.direction, shaderEngine};
+                auto pixColor = shaderEngine.shade(context).toPixColor();
                 img.set(x, y, pixColor);
             }
         }

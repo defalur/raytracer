@@ -1,5 +1,6 @@
 #include <algorithm>
 #include <memory>
+#include <utils/utils.h>
 #include "scene.h"
 
 void Scene::addObject(std::shared_ptr<SceneObject> obj) {
@@ -26,7 +27,7 @@ std::vector<RaycastHit> Scene::raycast_objects(Line3 ray) {
         auto tmp = obj->intersect(ray);
         for (auto& hit : tmp)
         {
-            if (hit.distance > 0)
+            if (hit.distance > EPSILON)
             {
                 hits.push_back(hit);
             }

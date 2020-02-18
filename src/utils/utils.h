@@ -3,7 +3,7 @@
 
 #include <cmath>
 
-#define EQEPSILON 0.0001
+constexpr float EPSILON = 0.0001;
 
 bool floateq(float a, float b);
 

@@ -1,8 +1,10 @@
 #include "shader.h"
+#include "hitcontext.h"
 #include <scene/sceneobject.h>
 #include <scene.h>
 #include <algorithm>
 #include <cmath>
+#include <utils/utils.h>
 
 MatColor Shader::shade(RaycastHit hit, Scene& scene, Line3 ray, unsigned depth) {
     auto lights = scene.getLights();
@@ -28,8 +30,8 @@ MatColor Shader::shade(RaycastHit hit, Scene& scene, Line3 ray, unsigned depth) 
 }
 
 float Shader::projectShadow(Light& light, Point3 point, Vector3 normal, Scene& scene) {
-    Line3 lightRay = {point + normal * 0.0001f, -light.direction(point)};
-    auto hit = scene.raycast(lightRay, light.distance(point) + 0.001f);
+    Line3 lightRay = {point, -light.direction(point)};
+    auto hit = scene.raycast(lightRay, light.distance(point) + EPSILON);
     if (hit.has_value())
     {
         return 0.f;
@@ -65,7 +67,7 @@ MatColor Shader::reflection(RaycastHit hit, Vector3 ray, Vector3 normal,
         return {0, 0, 0};
     }
 
-    auto reflectedRay = Line3{hit.point + normal * 0.001f, ray};
+    auto reflectedRay = Line3{hit.point, ray};
 
     auto reflectHit = scene.raycast(reflectedRay);
     if (reflectHit.has_value())
