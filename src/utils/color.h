@@ -20,6 +20,8 @@ struct MatColor
     MatColor operator*(MatColor c) const;
     MatColor operator+(MatColor c) const;
 
+    MatColor gamma(float gamma = 2.2f);
+
     PixColor toPixColor() const;
 };
 

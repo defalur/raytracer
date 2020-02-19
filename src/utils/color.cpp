@@ -2,6 +2,8 @@
 
 #include "color.h"
 
+#include <cmath>
+
 MatColor MatColor::operator*(float k) const
 {
     return MatColor{r * k, g * k, b * k};
@@ -15,6 +17,12 @@ MatColor MatColor::operator*(MatColor c) const
 PixColor MatColor::toPixColor() const
 {
     return PixColor{(uint8_t)(r * 255.f), (uint8_t)(g * 255.f), (uint8_t)(b * 255.f)};
+}
+
+MatColor MatColor::gamma(float gamma)
+{
+    auto correction = 1.f/gamma;
+    return MatColor{powf(r, correction), powf(g, correction), powf(b, correction)};
 }
 
 MatColor MatColor::operator+(MatColor c) const

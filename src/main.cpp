@@ -32,7 +32,7 @@ int main()
     auto obj3 = std::make_shared<Sphere>(Point3{-1.3, 4, 0}, 0.5f, green);
     auto ground = std::make_shared<Sphere>(Point3{0, 0, -200.5f}, 200, groundMat);
 
-    auto light = std::make_shared<PointLight>(121, MatColor{1, 1, 1}, Point3{-1.5, 2, 20});
+    auto light = std::make_shared<PointLight>(30, MatColor{1, 1, 1}, Point3{-1.5, 2, 20});
     auto light2 = std::make_shared<PointLight>(9, MatColor{1, 0.8, 1}, Point3{0, 3, 2});
 
     camera.lookAt(obj->position());
@@ -65,7 +65,7 @@ int main()
             if (hit.has_value())
             {
                 auto context = HitContext{scene, *hit, ray.direction, shaderEngine};
-                auto pixColor = shaderEngine.shade(context).toPixColor();
+                auto pixColor = shaderEngine.shade(context).gamma(1).toPixColor();
                 //auto pixColor = Shader::shade(*hit, scene, ray).toPixColor();
                 img.set(x, y, pixColor);
             }
