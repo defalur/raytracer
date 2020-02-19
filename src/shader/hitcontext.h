@@ -9,7 +9,7 @@ class ShaderEngine;
 class HitContext {
 public:
     HitContext(Scene &scene, RaycastHit hit, Vector3 inputRay,
-            ShaderEngine engine, unsigned depth = 3);
+            ShaderEngine &engine, unsigned depth = 5);
 
     std::vector<std::shared_ptr<Light>> lights() const;
     Scene& scene() const;

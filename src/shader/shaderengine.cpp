@@ -8,19 +8,21 @@ MatColor ShaderEngine::shade(HitContext context)
     for (auto& light : context.lights())
     {
         auto color = MatColor{0, 0, 0};
-        for (auto& shader : lightShaders_)
+        for (auto shader : lightShaders_)
         {
-            color = color + shader.compute(context, light);
+            color = color + shader->compute(context, light);
         }
         color = color * projectShadow(*light, context);
 
         res = res + color;
     }
 
-    for (auto& shader : shaders_)
+    for (auto shader : shaders_)
     {
-        res = res + shader.compute(context);
+        res = res + shader->compute(context);
     }
+
+    return res;
 }
 
 float ShaderEngine::projectShadow(Light& light, HitContext c) const {
@@ -34,10 +36,10 @@ float ShaderEngine::projectShadow(Light& light, HitContext c) const {
     return 1.f;
 }
 
-void ShaderEngine::addShader(Shader shader) {
+void ShaderEngine::addShader(std::shared_ptr<Shader> shader) {
     shaders_.push_back(shader);
 }
 
-void ShaderEngine::addLightShader(LightShader shader) {
+void ShaderEngine::addLightShader(std::shared_ptr<LightShader> shader) {
     lightShaders_.push_back(shader);
 }

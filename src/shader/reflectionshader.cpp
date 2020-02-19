@@ -1,4 +1,5 @@
 #include "reflectionshader.h"
+#include "shaderengine.h"
 
 MatColor ReflectionShader::compute(HitContext c) const {
     if (c.depth() == 0)

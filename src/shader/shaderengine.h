@@ -9,14 +9,14 @@
 class ShaderEngine {
 public:
     MatColor shade(HitContext context);
-    void addShader(Shader shader);
-    void addLightShader(LightShader shader);
+    void addShader(std::shared_ptr<Shader> shader);
+    void addLightShader(std::shared_ptr<LightShader> shader);
 
 private:
     float projectShadow(Light& light, HitContext context) const;
 
-    std::vector<Shader> shaders_;
-    std::vector<LightShader> lightShaders_;
+    std::vector<std::shared_ptr<Shader>> shaders_;
+    std::vector<std::shared_ptr<LightShader>> lightShaders_;
 };
 
 

@@ -2,7 +2,7 @@
 #include "shaderengine.h"
 
 HitContext::HitContext(Scene &scene, RaycastHit hit, Vector3 inputRay,
-        ShaderEngine engine, unsigned depth)
+        ShaderEngine &engine, unsigned depth)
     : scene_{scene}, hit_{hit}, inputRay_{inputRay}, engine_{engine}, depth_{depth}
 {
     normal_ = hit.object->normal(hit.point);

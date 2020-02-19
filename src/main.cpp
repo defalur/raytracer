@@ -12,6 +12,7 @@
 #include "utils/image.h"
 #include "utils/vector4.h"
 #include "scene.h"
+#include <shader/shaderengine.h>
 
 int main()
 {
@@ -44,9 +45,9 @@ int main()
     scene.addObject(ground);
 
     auto shaderEngine = ShaderEngine();
-    shaderEngine.addLightShader(DiffuseShader{});
-    shaderEngine.addLightShader(SpecularShader{});
-    shaderEngine.addShader(ReflectionShader{});
+    shaderEngine.addLightShader(std::make_shared<DiffuseShader>());
+    shaderEngine.addLightShader(std::make_shared<SpecularShader>());
+    shaderEngine.addShader(std::make_shared<ReflectionShader>());
 
     std::cout << "Hello, World!" << std::endl;
     auto img = Image(800, 600);
@@ -65,6 +66,7 @@ int main()
             {
                 auto context = HitContext{scene, *hit, ray.direction, shaderEngine};
                 auto pixColor = shaderEngine.shade(context).toPixColor();
+                //auto pixColor = Shader::shade(*hit, scene, ray).toPixColor();
                 img.set(x, y, pixColor);
             }
         }
