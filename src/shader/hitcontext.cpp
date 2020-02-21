@@ -5,7 +5,7 @@ HitContext::HitContext(Scene &scene, RaycastHit hit, Vector3 inputRay,
         ShaderEngine &engine, unsigned depth)
     : scene_{scene}, hit_{hit}, inputRay_{inputRay}, engine_{engine}, depth_{depth}
 {
-    normal_ = hit.object->normal(hit.point);
+    normal_ = hit.object->normal(hit.point, inputRay);
 
     reflectedRay_ = inputRay - normal_ * 2 * Vector3::dot(normal_, inputRay);
 }

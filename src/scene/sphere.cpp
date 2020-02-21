@@ -39,7 +39,7 @@ std::vector<RaycastHit> Sphere::intersect(Line3 ray)
     }
 }
 
-Vector3 Sphere::normal(Point3 point) const
+Vector3 Sphere::normal(Point3 point, Vector3) const
 {
     return (point - center).normalized();
 }

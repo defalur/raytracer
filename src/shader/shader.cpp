@@ -12,7 +12,7 @@ MatColor Shader::shade(RaycastHit hit, Scene& scene, Line3 ray, unsigned depth) 
     auto res = MatColor{0, 0, 0};
 
     auto point = hit.point;
-    auto normal = hit.object->normal(point);
+    auto normal = hit.object->normal(point, ray.direction);
 
     for (auto& light : lights)
     {
