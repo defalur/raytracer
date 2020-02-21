@@ -28,7 +28,9 @@ std::vector<RaycastHit> Triangle::intersect(Line3 ray) {
         auto cross2 = Vector3::cross(c_ - b_, point - b_);
         auto cross3 = Vector3::cross(a_ - c_, point - c_);
 
-        if (Vector3::dot(cross1, cross2) > 0 != Vector3::dot(cross1, cross3) > 0)
+        if (Vector3::dot(n_, cross1) < 0.f
+        or Vector3::dot(n_, cross2) < 0.f
+        or Vector3::dot(n_, cross3) < 0.f)
         {
             return std::vector<RaycastHit>();
         }

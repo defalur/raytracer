@@ -13,6 +13,7 @@
 #include "utils/vector4.h"
 #include "scene.h"
 #include <shader/shaderengine.h>
+#include <scene/triangle.h>
 
 int main()
 {
@@ -32,14 +33,18 @@ int main()
     auto obj3 = std::make_shared<Sphere>(Point3{-1.3, 4, 0}, 0.5f, green);
     auto ground = std::make_shared<Sphere>(Point3{0, 0, -200.5f}, 200, groundMat);
 
+    auto triangle = std::make_shared<Triangle>(Point3{0, 5, 0}, Point3(1.5, 4, 0),
+            Point3{-1.3, 4, 0}, red);
+
     auto light = std::make_shared<PointLight>(30, MatColor{1, 1, 1}, Point3{-1.5, 2, 20});
     auto light2 = std::make_shared<PointLight>(9, MatColor{1, 0.8, 1}, Point3{0, 3, 2});
 
     camera.lookAt(obj->position());
 
-    scene.addObject(obj);
-    scene.addObject(obj2);
-    scene.addObject(obj3);
+    //scene.addObject(obj);
+    //scene.addObject(obj2);
+    //scene.addObject(obj3);
+    scene.addObject(triangle);
     scene.addLight(light);
     scene.addLight(light2);
     scene.addObject(ground);
