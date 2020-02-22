@@ -1,13 +1,14 @@
 #include "hitcontext.h"
 #include "shaderengine.h"
 
-HitContext::HitContext(Scene &scene, RaycastHit hit, Vector3 inputRay,
-        ShaderEngine &engine, unsigned depth)
-    : scene_{scene}, hit_{hit}, inputRay_{inputRay}, engine_{engine}, depth_{depth}
+HitContext::HitContext(Scene &scene, RaycastHit hit, Line3 inputRay,
+        ShaderEngine &engine, unsigned depth, unsigned refractDepth)
+    : scene_{scene}, hit_{hit}, inputRay_{inputRay}, engine_{engine}, depth_{depth},
+    refractDepth_{refractDepth_}
 {
     normal_ = hit.object->normal(hit.point, inputRay);
 
-    reflectedRay_ = inputRay - normal_ * 2 * Vector3::dot(normal_, inputRay);
+    reflectedRay_ = inputRay.direction - normal_ * 2 * Vector3::dot(normal_, inputRay);
 }
 
 std::vector<std::shared_ptr<Light>> HitContext::lights() const {
@@ -26,7 +27,7 @@ Vector3 HitContext::reflectedRay() const {
     return reflectedRay_;
 }
 
-Vector3 HitContext::inputRay() const {
+Line3 HitContext::inputRay() const {
     return inputRay_;
 }
 
@@ -44,4 +45,9 @@ unsigned HitContext::depth() const {
 
 RaycastHit HitContext::hit() const {
     return hit_;
+}
+
+unsigned HitContext::refractDepth() const
+{
+    return refractDepth_;
 }

@@ -30,6 +30,10 @@ float ShaderEngine::projectShadow(Light& light, HitContext c) const {
     auto hit = c.scene().raycast(lightRay, light.distance(c.point()) + EPSILON);
     if (hit.has_value())
     {
+        if (hit->object->material(hit->point).transparent)
+        {
+            return 0.5f;
+        }
         return 0.f;
     }
 

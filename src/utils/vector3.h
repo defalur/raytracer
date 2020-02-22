@@ -45,6 +45,12 @@ struct Line3
     float kr = 1.f;//refraction index of current medium
 
     Point3 pointAt(float d) const;
+
+    //used by hitcontext to provide either a Vector3 or a Line3 for getinputray
+    operator Vector3() const
+    {
+        return direction;
+    }
 };
 
 #endif //RAYTRACER_VECTOR3_H

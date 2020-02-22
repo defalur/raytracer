@@ -8,17 +8,18 @@ class ShaderEngine;
 
 class HitContext {
 public:
-    HitContext(Scene &scene, RaycastHit hit, Vector3 inputRay,
-            ShaderEngine &engine, unsigned depth = 5);
+    HitContext(Scene &scene, RaycastHit hit, Line3 inputRay,
+            ShaderEngine &engine, unsigned depth = 0, unsigned refractDepth = 0);
 
     std::vector<std::shared_ptr<Light>> lights() const;
     Scene& scene() const;
     Vector3 normal() const;
     Vector3 reflectedRay() const;
-    Vector3 inputRay() const;
+    Line3 inputRay() const;
     Point3 point() const;
     ShaderEngine& engine() const;
     unsigned depth() const;
+    unsigned refractDepth() const;
     RaycastHit hit() const;
 
 private:
@@ -26,9 +27,10 @@ private:
     RaycastHit hit_;
     Vector3 normal_;
     Vector3 reflectedRay_;
-    Vector3 inputRay_;
+    Line3 inputRay_;
     ShaderEngine &engine_;
     unsigned depth_;
+    unsigned refractDepth_;
 };
 
 

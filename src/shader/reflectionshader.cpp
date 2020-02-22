@@ -1,8 +1,9 @@
+#include <utils/utils.h>
 #include "reflectionshader.h"
 #include "shaderengine.h"
 
 MatColor ReflectionShader::compute(HitContext c) const {
-    if (c.depth() == 0)
+    if (c.depth() == reflectionDepth)
     {
         return {0, 0, 0};
     }
@@ -12,8 +13,8 @@ MatColor ReflectionShader::compute(HitContext c) const {
     auto reflectHit = c.scene().raycast(reflectedRay);
     if (reflectHit.has_value())
     {
-        auto context = HitContext{c.scene(), *reflectHit, reflectedRay.direction,
-                                  c.engine(), c.depth() - 1};
+        auto context = HitContext{c.scene(), *reflectHit, reflectedRay,
+                                  c.engine(), c.depth() + 1};
         auto color = c.engine().shade(context);
 
         return color * c.hit().object->material(c.point()).ks;
