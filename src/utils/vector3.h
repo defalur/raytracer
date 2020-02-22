@@ -42,6 +42,7 @@ struct Line3
 {
     Point3 origin;
     Vector3 direction;
+    float kr = 1.f;//refraction index of current medium
 
     Point3 pointAt(float d) const;
 };

@@ -41,10 +41,10 @@ int main()
 
     camera.lookAt(obj->position());
 
-    //scene.addObject(obj);
-    //scene.addObject(obj2);
-    //scene.addObject(obj3);
-    scene.addObject(triangle);
+    scene.addObject(obj);
+    scene.addObject(obj2);
+    scene.addObject(obj3);
+    //scene.addObject(triangle);
     scene.addLight(light);
     scene.addLight(light2);
     scene.addObject(ground);
@@ -55,7 +55,7 @@ int main()
     shaderEngine.addShader(std::make_shared<ReflectionShader>());
 
     std::cout << "Hello, World!" << std::endl;
-    auto img = Image(800, 600);
+    auto img = Image(1920, 1080);
 
     camera.computeMatrix(img.width(), img.height());
 
@@ -70,7 +70,7 @@ int main()
             if (hit.has_value())
             {
                 auto context = HitContext{scene, *hit, ray.direction, shaderEngine};
-                auto pixColor = shaderEngine.shade(context).gamma(1).toPixColor();
+                auto pixColor = shaderEngine.shade(context).gamma(2.2).toPixColor();
                 //auto pixColor = Shader::shade(*hit, scene, ray).toPixColor();
                 img.set(x, y, pixColor);
             }
