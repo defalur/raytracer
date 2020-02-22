@@ -43,12 +43,6 @@ Vector3 Vector3::operator-(const Vector3 &v) const
     return Vector3(x - v.x, y - v.y, z - v.z);
 }
 
-std::ostream &operator<<(std::ostream &out, Vector3 &v)
-{
-    out << '(' << v.x << ", " << v.y << ", " << v.z << ')';
-    return out;
-}
-
 float Vector3::magnitude() const
 {
     return std::sqrt(sqMagnitude());
@@ -79,6 +73,12 @@ Vector3 Vector3::cross(const Vector3 &u, const Vector3 &v)
 
 bool Vector3::operator==(const Vector3 &v) const {
     return floateq(x, v.x) and floateq(y, v.y) and floateq(z, v.z);
+}
+
+std::ostream &operator<<(std::ostream &out, Vector3 v)
+{
+    out << '(' << v.x << ", " << v.y << ", " << v.z << ')';
+    return out;
 }
 
 Point3 Line3::pointAt(float d) const

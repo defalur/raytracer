@@ -29,14 +29,14 @@ int main()
                                 TextureMaterial::Material{0.2,0.8, 8}};
     auto glass = UniformTexture{PixColor{10, 255, 50},
                                 TextureMaterial::Material{0,0.1, 8,
-                                                          true, 0.8}};
+                                                          true, 1.5}};
     auto groundMat = UniformTexture{MatColor{0.8, 0.6, 1},
                                 TextureMaterial::Material{0.3,0.7, 10}};
     auto obj = std::make_shared<Sphere>(Point3{0, 5, 0}, 0.5f, cyan);
     auto obj2 = std::make_shared<Sphere>(Point3{1.5, 4, 0}, 0.5f, red);
     auto obj3 = std::make_shared<Sphere>(Point3{-1.3, 4, 0}, 0.5f, green);
     auto ground = std::make_shared<Sphere>(Point3{0, 0, -200.5f}, 200, groundMat);
-    auto obj4 = std::make_shared<Sphere>(Point3{0, 4, 0}, 0.5f, glass);
+    auto obj4 = std::make_shared<Sphere>(Point3{0, 3.5, 0.5}, 0.3f, glass);
 
     auto triangle = std::make_shared<Triangle>(Point3{0, 5, 0}, Point3(1.5, 4, 0),
             Point3{-1.3, 4, 0}, red);
@@ -58,7 +58,7 @@ int main()
     auto shaderEngine = ShaderEngine();
     shaderEngine.addLightShader(std::make_shared<DiffuseShader>());
     shaderEngine.addLightShader(std::make_shared<SpecularShader>());
-    //shaderEngine.addShader(std::make_shared<ReflectionShader>());
+    shaderEngine.addShader(std::make_shared<ReflectionShader>());
     shaderEngine.addShader(std::make_shared<TransparencyShader>());
 
     std::cout << "Hello, World!" << std::endl;

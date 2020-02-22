@@ -4,7 +4,7 @@
 HitContext::HitContext(Scene &scene, RaycastHit hit, Line3 inputRay,
         ShaderEngine &engine, unsigned depth, unsigned refractDepth)
     : scene_{scene}, hit_{hit}, inputRay_{inputRay}, engine_{engine}, depth_{depth},
-    refractDepth_{refractDepth_}
+    refractDepth_{refractDepth}
 {
     normal_ = hit.object->normal(hit.point, inputRay);
 

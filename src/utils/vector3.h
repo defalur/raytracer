@@ -31,10 +31,10 @@ struct Vector3 {
     float magnitude() const;
     Vector3 normalized() const;
 
-    friend std::ostream&operator<<(std::ostream &out, Vector3 &v);
+    friend std::ostream&operator<<(std::ostream &out, Vector3 v);
 };
 
-std::ostream& operator<<(std::ostream &out, Vector3 &v);
+std::ostream& operator<<(std::ostream &out, Vector3 v);
 
 using Point3 = Vector3;
 
