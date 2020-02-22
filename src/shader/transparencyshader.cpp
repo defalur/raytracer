@@ -44,8 +44,8 @@ MatColor TransparencyShader::compute(HitContext c) const {
         //should not need normalization
         auto refractedRay = c.inputRay().direction * nr + normal *(nr * costheta1 - sqrtf(k));
 
-        std::cout << "Ray: " << c.inputRay().direction << " Out: " << refractedRay
-            << " Normal: " << c.normal() << "\n";
+        //std::cout << "Ray: " << c.inputRay().direction << " Out: " << refractedRay
+        //    << " Normal: " << c.normal() << "\n";
 
         auto refractedHit = c.scene().raycast(Line3{c.point(), refractedRay});
         if (refractedHit.has_value())
