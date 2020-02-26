@@ -2,6 +2,7 @@
 #define RAYTRACER_COLOR_H
 
 #include <cstdint>
+#include <memory>
 
 struct PixColor
 {
@@ -15,6 +16,10 @@ struct MatColor
     float r;
     float g;
     float b;
+
+    MatColor();
+    MatColor(float r, float g, float b);
+    MatColor(std::array<float, 3> color);
 
     MatColor operator*(float k) const;
     MatColor operator*(MatColor c) const;

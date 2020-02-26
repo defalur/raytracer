@@ -4,6 +4,25 @@
 
 #include <cmath>
 
+MatColor::MatColor()
+    : r{0}, g{0}, b{0}
+{}
+
+MatColor::MatColor(float r, float g, float b)
+    : r{r}, g{g}, b{b}
+{}
+
+//used in the scene parser. Converts pixcolor to matcolor if necessary
+MatColor::MatColor(std::array<float, 3> color)
+    : r{color[0]}, g{color[1]}, b{color[2]}
+{
+    if (r > 1.f or g > 1.f or b > 1.f) {
+        r = r / 255.f;
+        g = g / 255.f;
+        b = b / 255.f;
+    }
+}
+
 MatColor MatColor::operator*(float k) const
 {
     return MatColor{r * k, g * k, b * k};

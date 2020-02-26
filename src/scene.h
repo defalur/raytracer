@@ -7,6 +7,7 @@
 #include <vector>
 #include <utils/raycastHit.h>
 #include <scene/light.h>
+#include <map>
 
 class Scene {
 public:
@@ -21,9 +22,21 @@ public:
         return lights_;
     }
 
+    void addMaterial(std::string name, std::shared_ptr<TextureMaterial> mat)
+    {
+        materials_.emplace(name, mat);
+    }
+
+    std::shared_ptr<TextureMaterial> getMaterial(std::string name)
+    {
+        return materials_[name];
+    }
+
 private:
     std::vector<std::shared_ptr<SceneObject>> objects_;
     std::vector<std::shared_ptr<Light>> lights_;
+
+    std::map<std::string, std::shared_ptr<TextureMaterial>> materials_;
 
     std::vector<RaycastHit> raycast_objects(Line3 ray);
 };

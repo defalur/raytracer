@@ -15,9 +15,11 @@
 #include <shader/shaderengine.h>
 #include <scene/triangle.h>
 #include <shader/transparencyshader.h>
+#include <fileutils/scenereader.h>
 
 int main()
 {
+    loadScene("../test.json");
     auto scene = Scene{};
     auto camera = Camera{Vector3{1, 2, 1.5}, 90, 0.5f};
 
@@ -62,7 +64,7 @@ int main()
     shaderEngine.addShader(std::make_shared<TransparencyShader>());
 
     std::cout << "Hello, World!" << std::endl;
-    auto img = Image(800, 600);
+    auto img = Image(1920, 1080);
 
     camera.computeMatrix(img.width(), img.height());
 

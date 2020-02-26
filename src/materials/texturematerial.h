@@ -13,7 +13,7 @@ public:
         float ks;//specular intensity
         float ns;//specular roughness
         bool transparent = false;
-        float kr;//refraction index
+        float kr = 1.f;//refraction index
     };
 
     virtual MatColor getColor(float x, float y) const = 0;//need 3 dimensions?

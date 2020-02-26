@@ -30,7 +30,7 @@ add_executable(raytracer src/main.cpp
         src/scene.cpp
         src/scene.h
         src/shader/shader.cpp
-        src/shader/shader.h src/utils/utils.cpp src/shader/hitcontext.cpp src/shader/hitcontext.h src/shader/shaderengine.cpp src/shader/shaderengine.h src/shader/diffuseshader.cpp src/shader/diffuseshader.h src/shader/specularshader.cpp src/shader/specularshader.h src/shader/reflectionshader.cpp src/shader/reflectionshader.h src/scene/triangle.cpp src/scene/triangle.h src/shader/ambientshader.cpp src/shader/ambientshader.h src/shader/transparencyshader.cpp src/shader/transparencyshader.h)
+        src/shader/shader.h src/utils/utils.cpp src/shader/hitcontext.cpp src/shader/hitcontext.h src/shader/shaderengine.cpp src/shader/shaderengine.h src/shader/diffuseshader.cpp src/shader/diffuseshader.h src/shader/specularshader.cpp src/shader/specularshader.h src/shader/reflectionshader.cpp src/shader/reflectionshader.h src/scene/triangle.cpp src/scene/triangle.h src/shader/ambientshader.cpp src/shader/ambientshader.h src/shader/transparencyshader.cpp src/shader/transparencyshader.h src/fileutils/scenereader.cpp src/fileutils/scenereader.h)
 
 target_include_directories(raytracer PRIVATE
         ${CMAKE_SOURCE_DIR}/src)
