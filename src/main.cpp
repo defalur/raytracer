@@ -7,49 +7,6 @@
 
 int main(int argc, char **argv)
 {
-    /*auto scene = Scene{};
-    auto camera = Camera{Vector3{1, 2, 1.5}, 90, 0.5f};
-
-    auto cyan = UniformTexture{PixColor{0, 255, 255},
-                               TextureMaterial::Material{0.1,0.9, 5}};
-    auto red = UniformTexture{PixColor{255, 0, 0},
-                              TextureMaterial::Material{0.8,0.2, 10}};
-    auto green = UniformTexture{PixColor{10, 255, 50},
-                                TextureMaterial::Material{0.2,0.8, 8}};
-    auto glass = UniformTexture{PixColor{10, 255, 50},
-                                TextureMaterial::Material{0,0.1, 8,
-                                                          true, 3}};
-    auto groundMat = UniformTexture{MatColor{0.8, 0.6, 1},
-                                TextureMaterial::Material{0.3,0.7, 10}};
-    auto obj = std::make_shared<Sphere>(Point3{0, 5, 0}, 0.5f, cyan);
-    auto obj2 = std::make_shared<Sphere>(Point3{1.5, 4, 0}, 0.5f, red);
-    auto obj3 = std::make_shared<Sphere>(Point3{-1.3, 4, 0}, 0.5f, green);
-    auto ground = std::make_shared<Sphere>(Point3{0, 0, -200.5f}, 200, groundMat);
-    auto obj4 = std::make_shared<Sphere>(Point3{0, 3.5, 0.5}, 0.3f, glass);
-
-    auto triangle = std::make_shared<Triangle>(Point3{0, 5, 0}, Point3(1.5, 4, 0),
-            Point3{-1.3, 4, 0}, red);
-
-    auto light = std::make_shared<PointLight>(30, MatColor{1, 1, 1}, Point3{-1.5, 2, 20});
-    auto light2 = std::make_shared<PointLight>(9, MatColor{1, 0.8, 1}, Point3{0, 3, 2});
-
-    camera.lookAt(obj->position());
-
-    scene.addObject(obj);
-    scene.addObject(obj2);
-    scene.addObject(obj3);
-    scene.addObject(obj4);
-    //scene.addObject(triangle);
-    scene.addLight(light);
-    scene.addLight(light2);
-    scene.addObject(ground);
-
-    auto shaderEngine = ShaderEngine();
-    shaderEngine.addLightShader(std::make_shared<DiffuseShader>());
-    shaderEngine.addLightShader(std::make_shared<SpecularShader>());
-    shaderEngine.addShader(std::make_shared<ReflectionShader>());
-    shaderEngine.addShader(std::make_shared<TransparencyShader>());*/
-
     if (argc != 5)
     {
         std::cout << "Usage: ./raytracer [input file] [output file] [image width] [image height].\n";
