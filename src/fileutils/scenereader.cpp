@@ -3,8 +3,31 @@
 #include <fileutils/json.hpp>
 #include <iostream>
 #include <materials/uniformtexture.h>
+#include <scene/sphere.h>
+#include <scene/triangle.h>
 
 using json = nlohmann::json;
+
+std::shared_ptr<SceneObject> loadObject(json data, const std::shared_ptr<Scene> scene)
+{
+    auto name = data["name"].get<std::string>();
+    auto mat = data["mat"].get<std::string>();
+    if (name == "sphere")
+    {
+        auto center = data["center"].get<std::array<float, 3>>();
+        auto radius = data["radius"].get<float>();
+
+        return std::make_shared<Sphere>(center, radius, scene->getMaterial(mat));
+    }
+    else if (name == "triangle")
+    {
+        auto a = data["a"].get<std::array<float, 3>>();
+        auto b = data["b"].get<std::array<float, 3>>();
+        auto c = data["c"].get<std::array<float, 3>>();
+
+        return std::make_shared<Triangle>(a, b, c, mat);
+    }
+}
 
 std::optional<std::shared_ptr<Scene>> loadScene(std::string path) {
     std::ifstream file(path);
@@ -52,6 +75,8 @@ std::optional<std::shared_ptr<Scene>> loadScene(std::string path) {
         if (objData.is_object())
         {
             //create a sceneobject directly (use a factory)
+            auto obj = loadObject(objData, res);
+            res->addObject(obj);
         }
         else
         {
@@ -59,4 +84,9 @@ std::optional<std::shared_ptr<Scene>> loadScene(std::string path) {
             throw std::runtime_error("Obj files not yet supported.");
         }
     }
+
+    auto camera = j["camera"];
+
+
+    return res;
 }

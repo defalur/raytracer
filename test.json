@@ -1,0 +1,46 @@
+{
+    "materials" : [
+        {
+            "name" : "red",
+            "mat" : {
+                "kd" : 0.4,
+                "ks" : 0.6,
+                "ns" : 10,
+                "transparent" : false
+            },
+            "color" : [0.8, 0.1, 0.2]
+        },
+        {
+            "name" : "blue",
+            "mat" : {
+                "kd" : 0.1,
+                "ks" : 0.9,
+                "ns" : 8,
+                "transparent" : false
+            },
+            "color" : [0,0,0.9]
+        }
+    ],
+    "objects" : [
+        {
+            "name" : "sphere",
+            "mat" : "red",
+            "center" : [1, 4, 0],
+            "radius" : 0.5
+        },
+        {
+            "name" : "triangle",
+            "mat" : "blue",
+            "a" : [0, 0, 0],
+            "b" : [0, 1, 0],
+            "c" : [1, 0, 1]
+        },
+        ["box.obj", "blue"]
+    ],
+    "camera" : {
+        "origin" : [0, 0, 0],
+        "forward" : [0, 1, 0],
+        "xangle" : 90,
+        "zmin" : 1
+    }
+}

@@ -58,4 +58,3 @@ Point3 Sphere::position() const
 {
     return center;
 }
-

@@ -22,5 +22,4 @@ private:
     TextureMaterial &mat;
 };
 
-
 #endif //RAYTRACER_SPHERE_H
