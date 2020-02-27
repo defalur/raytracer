@@ -7,7 +7,6 @@
 
 int main(int argc, char **argv)
 {
-    loadScene("../test.json");
     /*auto scene = Scene{};
     auto camera = Camera{Vector3{1, 2, 1.5}, 90, 0.5f};
 

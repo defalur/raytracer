@@ -1,0 +1,117 @@
+{
+    "materials" : [
+	{
+	    "name" : "cyan",
+	    "mat" : {
+		"kd" : 0.1,
+		"ks" : 0.9,
+		"ns" : 5,
+		"transparent" : false
+	    },
+	    "color" : [0, 255, 255]
+	},
+	{
+	    "name" : "red",
+	    "mat" : {
+		"kd" : 0.8,
+		"ks" : 0.2,
+		"ns" : 10,
+		"transparent" : false
+	    },
+	    "color" : [255, 0, 0]
+	},
+	{
+	    "name" : "green",
+	    "mat" : {
+		"kd" : 0.2,
+		"ks" : 0.8,
+		"ns" : 8,
+		"transparent" : false
+	    },
+	    "color" : [10, 255, 50]
+	},
+	{
+	    "name" : "glass",
+	    "mat" : {
+		"kd" : 0,
+		"ks" : 0.1,
+		"ns" : 8,
+		"transparent" : true,
+		"kr" : 3
+	    },
+	    "color" : [10, 255, 50]
+	},
+	{
+	    "name" : "groundMat",
+	    "mat" : {
+		"kd" : 0.3,
+		"ks" : 0.7,
+		"ns" : 10,
+		"transparent" : false
+	    },
+	    "color" : [0.8, 0.6, 1]
+	}
+    ],
+    "objects" : [
+	{
+	    "name" : "sphere",
+	    "mat" : "cyan",
+	    "center" : [0, 5, 0],
+	    "radius" : 0.5
+	},
+	{
+	    "name" : "sphere",
+	    "mat" : "red",
+	    "center" : [1.5, 4, 0],
+	    "radius" : 0.5
+	},
+	{
+	    "name" : "sphere",
+	    "mat" : "green",
+	    "center" : [-1.3, 4, 0],
+	    "radius" : 0.5
+	},
+	{
+	    "name" : "sphere",
+	    "mat" : "groundMat",
+	    "center" : [0, 0, -200.5],
+	    "radius" : 200
+	},
+	{
+	    "name" : "sphere",
+	    "mat" : "glass",
+	    "center" : [0, 3.5, 0.5],
+	    "radius" : 0.3
+	}
+    ],
+    "camera" : {
+	"origin" : [1, 2, 1.5],
+	"xangle" : 90,
+	"zmin" : 0.5,
+	"lookat" : 0
+    },
+    "lights" : [
+	{
+	    "type" : "point",
+	    "color" : [1, 1, 1],
+	    "position" : [-1.5, 2, 20],
+	    "strength" : 30
+	},
+	{
+	    "type" : "point",
+	    "color" : [1, 0.8, 1],
+	    "position" : [0, 3, 2],
+	    "strength" : 9
+	}
+    ],
+    "shaders" : [
+	"diffuse",
+	"specular",
+	"reflection",
+	"transparent",
+	{
+	    "type" : "ambient",
+	    "color" : [0.1, 0.1, 0.1]
+	}
+    ]
+}
