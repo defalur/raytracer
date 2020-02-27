@@ -38,7 +38,8 @@ MatColor TransparencyShader::compute(HitContext c) const {
         auto k = 1 - nr * nr * (1 - costheta1 * costheta1);
         if (k < 0)
         {
-            return c.hit().object->texture(c.point());
+            return {0, 0, 0};
+            //return c.hit().object->texture(c.point());
         }
 
         //should not need normalization

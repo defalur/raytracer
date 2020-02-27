@@ -31,7 +31,7 @@ int main()
                                 TextureMaterial::Material{0.2,0.8, 8}};
     auto glass = UniformTexture{PixColor{10, 255, 50},
                                 TextureMaterial::Material{0,0.1, 8,
-                                                          true, 1.5}};
+                                                          true, 3}};
     auto groundMat = UniformTexture{MatColor{0.8, 0.6, 1},
                                 TextureMaterial::Material{0.3,0.7, 10}};
     auto obj = std::make_shared<Sphere>(Point3{0, 5, 0}, 0.5f, cyan);

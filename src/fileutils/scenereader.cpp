@@ -5,10 +5,17 @@
 #include <materials/uniformtexture.h>
 #include <scene/sphere.h>
 #include <scene/triangle.h>
+#include <rendercontext.h>
+#include <scene/pointlight.h>
+#include <shader/diffuseshader.h>
+#include <shader/specularshader.h>
+#include <shader/ambientshader.h>
+#include <shader/reflectionshader.h>
+#include <shader/transparencyshader.h>
 
 using json = nlohmann::json;
 
-std::shared_ptr<SceneObject> loadObject(json data, const std::shared_ptr<Scene> scene)
+std::shared_ptr<SceneObject> loadObject(json data, std::shared_ptr<RenderContext> context)
 {
     auto name = data["name"].get<std::string>();
     auto mat = data["mat"].get<std::string>();
@@ -17,7 +24,8 @@ std::shared_ptr<SceneObject> loadObject(json data, const std::shared_ptr<Scene> 
         auto center = data["center"].get<std::array<float, 3>>();
         auto radius = data["radius"].get<float>();
 
-        return std::make_shared<Sphere>(center, radius, scene->getMaterial(mat));
+        return std::make_shared<Sphere>(Vector3{center},
+                radius, context->getMaterial(mat));
     }
     else if (name == "triangle")
     {
@@ -25,21 +33,69 @@ std::shared_ptr<SceneObject> loadObject(json data, const std::shared_ptr<Scene> 
         auto b = data["b"].get<std::array<float, 3>>();
         auto c = data["c"].get<std::array<float, 3>>();
 
-        return std::make_shared<Triangle>(a, b, c, mat);
+        return std::make_shared<Triangle>(Vector3{a},
+                Vector3{b}, Vector3{c}, context->getMaterial(mat));
+    }
+
+    return nullptr;
+}
+
+std::shared_ptr<Light> loadLight(json data)
+{
+    auto type = data["type"].get<std::string>();
+    auto color = data["color"].get<std::array<float, 3>>();
+    if (type == "point")
+    {
+        auto position = data["position"].get<std::array<float, 3>>();
+        auto strength = data["strength"].get<float>();
+
+        return std::make_shared<PointLight>(strength, MatColor{color},
+                Vector3{position});
+    }
+
+    return nullptr;
+}
+
+void loadShader(json data, std::shared_ptr<ShaderEngine> engine)
+{
+    if (data.is_string())
+    {
+        auto type = data.get<std::string>();
+        if (type == "diffuse")
+            engine->addLightShader(std::make_shared<DiffuseShader>());
+        else if (type == "specular")
+            engine->addLightShader(std::make_shared<SpecularShader>());
+        else if (type == "reflection")
+            engine->addShader(std::make_shared<ReflectionShader>());
+        else if (type == "transparent")
+            engine->addShader(std::make_shared<TransparencyShader>());
+    }
+    else if (data.is_object())
+    {
+        auto type = data["type"].get<std::string>();
+        if (type == "ambient")
+        {
+            auto color = data["color"].get<std::array<float, 3>>();
+            engine->addShader(std::make_shared<AmbientShader>(MatColor{color}));
+        }
     }
 }
 
-std::optional<std::shared_ptr<Scene>> loadScene(std::string path) {
+std::optional<std::shared_ptr<RenderContext>> loadScene(std::string path) {
     std::ifstream file(path);
 
     if (not file.is_open())
-        return nullptr;
+        return std::nullopt;
 
     json j;
     file >> j;
 
-    auto res = std::make_shared<Scene>();
+    auto context = std::make_shared<RenderContext>();
 
+    auto scene = std::make_shared<Scene>();
+    context->scene = scene;
+
+    //Read all materials
     auto matArray = j["materials"];
     for (auto mat : matArray)
     {
@@ -61,7 +117,7 @@ std::optional<std::shared_ptr<Scene>> loadScene(std::string path) {
             //array means a single color
             //we can create a uniformtexture here and add it to the scene instance
             auto resMat = UniformTexture{MatColor{color.get<std::array<float, 3>>()}, tmp};
-            res->addMaterial(name, std::make_shared<UniformTexture>(resMat));
+            context->addMaterial(name, std::make_shared<UniformTexture>(resMat));
         }
         else
         {
@@ -70,13 +126,14 @@ std::optional<std::shared_ptr<Scene>> loadScene(std::string path) {
         }
     }
 
+    //Read all objects
     auto objArray = j["objects"];
     for (auto objData : objArray) {
         if (objData.is_object())
         {
             //create a sceneobject directly (use a factory)
-            auto obj = loadObject(objData, res);
-            res->addObject(obj);
+            auto obj = loadObject(objData, context);
+            scene->addObject(obj);
         }
         else
         {
@@ -85,8 +142,39 @@ std::optional<std::shared_ptr<Scene>> loadScene(std::string path) {
         }
     }
 
-    auto camera = j["camera"];
+    //configure the camera
+    {
+        auto cameraData = j["camera"];
+        auto origin = cameraData["origin"].get<std::array<float, 3>>();
+        auto forward = cameraData["forward"].get<std::array<float, 3>>();
+        auto xangle = cameraData["xangle"].get<float>();
+        auto zmin = cameraData["zmin"].get<float>();
 
+        context->camera = std::make_shared<Camera>(Vector3{origin},
+                Vector3{forward}, xangle, zmin);
+    }
 
-    return res;
+    //add the lights
+    {
+        auto lights = j["lights"];
+        for (auto lightData : lights)
+        {
+            auto light = loadLight(lightData);
+            context->scene->addLight(light);
+        }
+    }
+
+    //configure the shader engine
+    {
+        auto shaderEngine = std::make_shared<ShaderEngine>();
+        auto shaders = j["shaders"];
+        for (auto shaderData : shaders)
+        {
+            loadShader(shaderData, shaderEngine);
+        }
+
+        context->shaderEngine = shaderEngine;
+    }
+
+    return std::optional(context);
 }

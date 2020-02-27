@@ -9,7 +9,7 @@
 
 class Triangle : public SceneObject {
 public:
-    Triangle(Point3 a, Point3 b, Point3 c, TextureMaterial &mat);
+    Triangle(Point3 a, Point3 b, Point3 c, std::shared_ptr<TextureMaterial> mat);
 
     std::vector<RaycastHit> intersect(Line3 ray) override;
     Vector3 normal(Point3 point, Vector3 ray) const override;
@@ -26,7 +26,7 @@ private:
     Vector3 u_;
     Vector3 v_;
 
-    TextureMaterial &mat_;
+    std::shared_ptr<TextureMaterial> mat_;
 };
 
 

@@ -8,7 +8,7 @@
 class PointLight : public Light
 {
 public:
-    PointLight(float strength, MatColor color_, Point3 position);
+    PointLight(float strength, MatColor color, Point3 position);
 
     MatColor color() const override;
     float intensity(Point3 point) const override;

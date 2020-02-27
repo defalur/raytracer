@@ -42,5 +42,23 @@
         "forward" : [0, 1, 0],
         "xangle" : 90,
         "zmin" : 1
-    }
+    },
+    "lights" : [
+	{
+	    "type" : "point",
+	    "color" : [1, 1, 1],
+	    "position" : [0, 1, 2],
+	    "strength" : 6
+	}
+    ].
+    "shaders" : [
+	"diffuse",
+	"specular",
+	"reflection",
+	"transparent",
+	{
+	    "type" : "ambient",
+	    "color" : [0, 0.1, 0.1]
+	}
+    ]
 }

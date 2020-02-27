@@ -3,7 +3,7 @@
 #include "sphere.h"
 
 
-Sphere::Sphere(Point3 center, float radius, TextureMaterial &mat)
+Sphere::Sphere(Point3 center, float radius, std::shared_ptr<TextureMaterial> mat)
     : center(center), radius(radius), mat(mat)
 {
 
@@ -46,12 +46,12 @@ Vector3 Sphere::normal(Point3 point, Vector3) const
 
 MatColor Sphere::texture(Point3 point) const
 {
-    return mat.getColor(0.f, 0.f);//simple solutions for the start
+    return mat->getColor(0.f, 0.f);//simple solutions for the start
 }
 
 TextureMaterial::Material Sphere::material(Point3 point) const
 {
-    return mat.getMaterial(0.f, 0.f);
+    return mat->getMaterial(0.f, 0.f);
 }
 
 Point3 Sphere::position() const

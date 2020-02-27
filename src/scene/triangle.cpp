@@ -3,7 +3,7 @@
 
 
 
-Triangle::Triangle(Point3 a, Point3 b, Point3 c, TextureMaterial &mat)
+Triangle::Triangle(Point3 a, Point3 b, Point3 c, std::shared_ptr<TextureMaterial> mat)
     : a_{a}, b_{b}, c_{c}, mat_{mat}
 {
     u_ = (b_ - a_).normalized();
@@ -47,11 +47,11 @@ Vector3 Triangle::normal(Point3 point, Vector3 ray) const {
 }
 
 MatColor Triangle::texture(Point3 point) const {
-    return mat_.getColor(0.f, 0.f);
+    return mat_->getColor(0.f, 0.f);
 }
 
 TextureMaterial::Material Triangle::material(Point3 point) const {
-    return mat_.getMaterial(0.f, 0.f);
+    return mat_->getMaterial(0.f, 0.f);
 }
 
 Point3 Triangle::position() const {
