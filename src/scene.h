@@ -22,6 +22,11 @@ public:
         return lights_;
     }
 
+    auto getObject(unsigned index)
+    {
+        return objects_[index];
+    }
+
 private:
     std::vector<std::shared_ptr<SceneObject>> objects_;
     std::vector<std::shared_ptr<Light>> lights_;

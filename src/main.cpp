@@ -1,26 +1,14 @@
 #include <iostream>
-#include <scene/camera.h>
-#include <scene/sphere.h>
-#include <materials/uniformtexture.h>
-#include <scene/pointlight.h>
 #include <shader/shader.h>
-#include <shader/diffuseshader.h>
-#include <shader/specularshader.h>
-#include <shader/reflectionshader.h>
 #include "utils/vector3.h"
 #include "utils/color.h"
 #include "utils/image.h"
-#include "utils/vector4.h"
-#include "scene.h"
-#include <shader/shaderengine.h>
-#include <scene/triangle.h>
-#include <shader/transparencyshader.h>
 #include <fileutils/scenereader.h>
 
-int main()
+int main(int argc, char **argv)
 {
     loadScene("../test.json");
-    auto scene = Scene{};
+    /*auto scene = Scene{};
     auto camera = Camera{Vector3{1, 2, 1.5}, 90, 0.5f};
 
     auto cyan = UniformTexture{PixColor{0, 255, 255},
@@ -61,32 +49,56 @@ int main()
     shaderEngine.addLightShader(std::make_shared<DiffuseShader>());
     shaderEngine.addLightShader(std::make_shared<SpecularShader>());
     shaderEngine.addShader(std::make_shared<ReflectionShader>());
-    shaderEngine.addShader(std::make_shared<TransparencyShader>());
+    shaderEngine.addShader(std::make_shared<TransparencyShader>());*/
+
+    if (argc != 5)
+    {
+        std::cout << "Usage: ./raytracer [input file] [output file] [image width] [image height].\n";
+        return 1;
+    }
+
+    std::string inputFile = argv[1];
+    std::string outputFile = argv[2];
+    unsigned width = std::stoi(argv[3]);
+    unsigned height = std::stoi(argv[4]);
+
+    auto loadResult = loadScene(inputFile);
+
+    std::shared_ptr<RenderContext> renderContext;
+    if (loadResult.has_value())
+        renderContext = loadResult.value();
+    else
+    {
+        std::cout << "Could not load scene.\n";
+        return 2;
+    }
 
     std::cout << "Hello, World!" << std::endl;
-    auto img = Image(1920, 1080);
+    auto img = Image(width, height);
 
-    camera.computeMatrix(img.width(), img.height());
+    renderContext->camera->computeMatrix(img.width(), img.height());
 
     for (unsigned y = 0; y < img.height(); y++)
     {
         for (unsigned x = 0; x < img.width(); x++)
         {
-            auto ray = camera.getRay(x, y);
+            auto ray = renderContext->camera->getRay(x, y);
 
-            auto hit = scene.raycast(ray);
+            auto hit = renderContext->scene->raycast(ray);
 
             if (hit.has_value())
             {
-                auto context = HitContext{scene, *hit, ray, shaderEngine};
-                auto pixColor = shaderEngine.shade(context).gamma(2.2).toPixColor();
+                auto context = HitContext{*renderContext->scene, *hit, ray,
+                                          *renderContext->shaderEngine};
+                auto pixColor = renderContext->shaderEngine
+                        ->shade(context).gamma(2.2).toPixColor();
                 //auto pixColor = Shader::shade(*hit, scene, ray).toPixColor();
                 img.set(x, y, pixColor);
             }
         }
         //std::cout << "Progress: " << (float)y / img.height() << "\n";
     }
-    img.save("test.ppm");
+    img.save(outputFile);
 
     return 0;
 }

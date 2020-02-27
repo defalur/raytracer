@@ -146,12 +146,38 @@ std::optional<std::shared_ptr<RenderContext>> loadScene(std::string path) {
     {
         auto cameraData = j["camera"];
         auto origin = cameraData["origin"].get<std::array<float, 3>>();
-        auto forward = cameraData["forward"].get<std::array<float, 3>>();
         auto xangle = cameraData["xangle"].get<float>();
         auto zmin = cameraData["zmin"].get<float>();
 
-        context->camera = std::make_shared<Camera>(Vector3{origin},
-                Vector3{forward}, xangle, zmin);
+        if (cameraData.find("forward") != cameraData.end())
+        {
+            //a forward vector exists
+            auto forward = cameraData["forward"].get<std::array<float, 3>>();
+            context->camera = std::make_shared<Camera>(Vector3{origin},
+                                                       Vector3{forward},
+                                                       xangle, zmin);
+        }
+        else
+        {
+            context->camera = std::make_shared<Camera>(Vector3{origin},
+                    xangle, zmin);
+
+            if (cameraData.find("lookat") != cameraData.end())
+            {
+                auto target = cameraData["lookat"];
+                if (target.is_array())
+                {
+                    auto point = target.get<std::array<float, 3>>();
+                    context->camera->lookAt(Vector3{point});
+                }
+                else if (target.is_number())
+                {
+                    auto objindex = cameraData["lookat"].get<unsigned>();
+                    context->camera->lookAt(scene->getObject(objindex)->position());
+                }
+            }
+        }
+
     }
 
     //add the lights
